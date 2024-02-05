@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+</head>
+
+<body>
+    <h1>Главная страница</h1>
+    <hr>
+
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Выйти</button>
+    </form>
+    <a href="/cart">Корзина</a>
+    {% else %}
+    <form action="register" method="post">
+        {% csrf_token %}
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Войти</button>
+    </form>
+    {% endif %}
+
+    <hr>
+    <form action="search" method="post">
+        {% csrf_token %}
+        <input type="text" name="search_product">
+        <button>Поиск</button>
+    </form>
+
+    <hr>
+    Товары: <br>
+    {% for i in product %}
+    <a href="/product/{{ i.id }}">{{ i.pr_name }}</a><br>
+    {% endfor %}
+    <hr>
+    Категории: <br>
+    {% for i in category %}
+    <a href="/category/{{ i.id }}">{{ i.name }}</a><br>
+    {% endfor %}
+    <hr>
+    <a href="/about-us">О нас</a>
+    <a href="/contact-us">Контакты</a>
+</body>
+
+</html>

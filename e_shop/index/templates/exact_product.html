@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 padding-right">
+                <div class="product-details"><!--product-details-->
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img src="/{{ product.pr_photo }}" alt="" /> <!--product image-->
+                        </div>
+
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information"><!--/product-information-->
+                            <img src="{% static 'images/product-details/new.jpg' %}" class="newarrival" alt="" />
+                            <h2>{{ product.pr_name }}</h2>
+                            <span>
+                                <span>${{ product.pr_price }}</span><br>
+                                <label>Quantity</label><br>
+                                {% if user.is_authenticated %}
+                                <form action="/add-to-cart/{{ product.id }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="number" name="pr_amount" min="1"/>
+                                    <button type="submit" class="btn btn-fefault cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Add to cart
+                                    </button>
+                                </form>
+                                {% else %}
+                                {% endif %}
+                            </span>
+                            <p><b>Description:</b> {{ product.pr_des }}</p>
+                            <a href=""><img src="images/product-details/share.png" class="share img-responsive"
+                                    alt="" /></a>
+                        </div><!--/product-information-->
+                    </div>
+                </div><!--/product-details-->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

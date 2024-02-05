@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Инфо о продукте</title>
+</head>
+
+<body>
+    <h1>{{ product.pr_name }}</h1><br>
+    <hr>
+    <b>Количество: </b>{{ product.pr_count }}<br>
+    <b>Описание: </b>{{ product.pr_des }}<br>
+    <b>Категория: </b><a href="/category/{{ product.category_name.id }}">{{ product.category_name }}</a><br>
+    <b>Цена: </b>{{ product.pr_price }}<br>
+    <img src="product.pr_photo" alt="Фото товара"><br>
+    <hr>
+
+    <form action="/add-to-cart/{{ product.id }}" method="post">
+        {% csrf_token %}
+        <input type="number" min="1" name="pr_amount">
+        <button type="submit">Добавить в корзину</button>
+    </form>
+
+    <hr>
+    <a href="/">на главную</a>
+</body>
+
+</html>
